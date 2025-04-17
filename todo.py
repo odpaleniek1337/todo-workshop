@@ -15,6 +15,7 @@ def save_tasks(tasks):
         json.dump(tasks, f, indent=2)
 
 def add_task(description):
+    tasks.append({"description": description, "completed": False, "priority": "medium"})
     tasks = load_tasks()
     tasks.append({"description": description, "completed": False})
     save_tasks(tasks)
