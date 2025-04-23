@@ -50,6 +50,17 @@ def complete_task(index):
         print(f"Zadanie ukończone i usunięte: {completed_task['description']}")
     else:
         print("Nieprawidłowy numer zadania.")
+        
+
+def edit_task(index, new_description):
+    tasks = load_tasks()
+    if 0 < index <= len(tasks):
+        old_description = tasks[index - 1]['description']
+        tasks[index - 1]['description'] = new_description
+        save_tasks(tasks)
+        print(f"Zaktualizowano zadanie {index}: '{old_description}' -> '{new_description}'")
+    else:
+        print("Nieprawidłowy numer zadania.")
 
 def filter_by_tag(tag):
     tasks = load_tasks()
@@ -74,6 +85,10 @@ def main():
 
     complete_parser = subparsers.add_parser("done", help="Mark task as done")
     complete_parser.add_argument("index", type=int, help="Task number to mark as complete")
+    
+    edit_parser = subparsers.add_parser("edit", help="Edit an existing task")
+    edit_parser.add_argument("index", type=int, help="Task number to edit")
+    edit_parser.add_argument("new_description", help="New task description")
 
     filter_parser = subparsers.add_parser("filter", help="Filter tasks by tag")
     filter_parser.add_argument("tag", help="Tag to filter tasks")
@@ -88,8 +103,11 @@ def main():
         export_tasks_to_csv()
     elif args.command == "done":
         complete_task(args.index)
+        feature_tags
     elif args.command == "filter":
         filter_by_tag(args.tag)
+    elif args.command == "edit":
+        edit_task(args.index, args.new_description)
     else:
         parser.print_help()
 
