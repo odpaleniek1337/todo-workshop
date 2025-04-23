@@ -36,6 +36,17 @@ def complete_task(index):
         print(f"Zadanie ukończone i usunięte: {completed_task['description']}")
     else:
         print("Nieprawidłowy numer zadania.")
+        
+
+def edit_task(index, new_description):
+    tasks = load_tasks()
+    if 0 < index <= len(tasks):
+        old_description = tasks[index - 1]['description']
+        tasks[index - 1]['description'] = new_description
+        save_tasks(tasks)
+        print(f"Zaktualizowano zadanie {index}: '{old_description}' -> '{new_description}'")
+    else:
+        print("Nieprawidłowy numer zadania.")
 
 def main():
     parser = argparse.ArgumentParser(description="Simple Todo CLI")
@@ -48,6 +59,10 @@ def main():
 
     complete_parser = subparsers.add_parser("done", help="Mark task as done")
     complete_parser.add_argument("index", type=int, help="Task number to mark as complete")
+    
+    edit_parser = subparsers.add_parser("edit", help="Edit an existing task")
+    edit_parser.add_argument("index", type=int, help="Task number to edit")
+    edit_parser.add_argument("new_description", help="New task description")
 
     args = parser.parse_args()
 
@@ -57,6 +72,8 @@ def main():
         list_tasks()
     elif args.command == "done":
         complete_task(args.index)
+    elif args.command == "edit":
+        edit_task(args.index, args.new_description)
     else:
         parser.print_help()
 
