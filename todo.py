@@ -16,9 +16,9 @@ def save_tasks(tasks):
         json.dump(tasks, f, indent=2)
     print("Tasks saved to json.")
 
-def add_task(description):
+def add_task(description, priority="medium"):
     tasks = load_tasks()
-    tasks.append({"description": description, "completed": False})
+    tasks.append({"description": description, "completed": False, "priority": "medium"})
     print(f"Added task: {description}")
     save_tasks(tasks)
 
@@ -26,7 +26,7 @@ def list_tasks():
     tasks = load_tasks()
     for i, task in enumerate(tasks, 1):
         status = "✓" if task["completed"] else " "
-        print(f"{i}. [{status}] {task['description']}")
+        print(f"{i}. [{status}] {task['description']} priorytet: {task['priority']}")
 
 def complete_task(index):
     tasks = load_tasks()
@@ -43,6 +43,7 @@ def main():
 
     add_parser = subparsers.add_parser("add", help="Add a new task")
     add_parser.add_argument("description", help="Task description")
+    add_parser.add_argument("priority", help="Task priority")
 
     list_parser = subparsers.add_parser("list", help="List all tasks")
 
@@ -52,7 +53,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "add":
-        add_task(args.description)
+        add_task(args.description, args.priority)
     elif args.command == "list":
         list_tasks()
     elif args.command == "done":
