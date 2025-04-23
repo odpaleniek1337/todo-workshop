@@ -85,10 +85,10 @@ Poniżej lista branchy do napisania/przejrzenia, przetestowania i ewentualnego p
 - [ ] `feature_add_priority`
 - [ ] `feature_add_due_date`
 - [ ] `feature_delete_done_task`
-- [ ] `feature_add_logging` - zamienić printy na logowanie
 
-#### Średnie 
+#### Średnie
 - [ ] `feature_add_csv_export`
+- [ ] `feature_add_logging` - zamienić printy na logowanie
 
 ### 2 rzut
 
