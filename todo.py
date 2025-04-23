@@ -6,6 +6,7 @@ DATA_FILE = "data.json"
 
 def load_tasks():
     if not os.path.exists(DATA_FILE):
+        print("No tasks found.")
         return []
     with open(DATA_FILE, "r") as f:
         return json.load(f)
@@ -13,12 +14,13 @@ def load_tasks():
 def save_tasks(tasks):
     with open(DATA_FILE, "w") as f:
         json.dump(tasks, f, indent=2)
+    print("Tasks saved to json.")
 
 def add_task(description):
     tasks = load_tasks()
     tasks.append({"description": description, "completed": False})
-    save_tasks(tasks)
     print(f"Added task: {description}")
+    save_tasks(tasks)
 
 def list_tasks():
     tasks = load_tasks()
