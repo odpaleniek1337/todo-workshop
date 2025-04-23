@@ -103,7 +103,6 @@ def main():
         export_tasks_to_csv()
     elif args.command == "done":
         complete_task(args.index)
-        feature_tags
     elif args.command == "filter":
         filter_by_tag(args.tag)
     elif args.command == "edit":
