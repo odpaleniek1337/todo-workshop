@@ -31,6 +31,7 @@ Celem ćwiczenia jest:
 ```bash
 python todo.py add "Zrób plan warsztatu"
 python todo.py list
+python todo.py export
 python todo.py done 1
 ```
 

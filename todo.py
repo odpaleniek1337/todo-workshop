@@ -16,6 +16,14 @@ def save_tasks(tasks):
         json.dump(tasks, f, indent=2)
     print("Tasks saved to json.")
 
+def export_tasks_to_csv():
+    import csv
+    with open("tasks.csv", "w", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["Description", "Completed"])
+        for task in load_tasks():
+            writer.writerow([task["description"], task["completed"]])
+
 def add_task(description):
     tasks = load_tasks()
     tasks.append({"description": description, "completed": False})
@@ -46,6 +54,8 @@ def main():
 
     list_parser = subparsers.add_parser("list", help="List all tasks")
 
+    export_parser = subparsers.add_parser("export", help="Export tasks to csv")
+
     complete_parser = subparsers.add_parser("done", help="Mark task as done")
     complete_parser.add_argument("index", type=int, help="Task number to mark as complete")
 
@@ -55,6 +65,8 @@ def main():
         add_task(args.description)
     elif args.command == "list":
         list_tasks()
+    elif args.command == "export":
+        export_tasks_to_csv()
     elif args.command == "done":
         complete_task(args.index)
     else:
