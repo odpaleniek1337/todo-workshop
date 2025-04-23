@@ -39,11 +39,11 @@ def list_tasks():
 def complete_task(index):
     tasks = load_tasks()
     if 0 < index <= len(tasks):
-        tasks[index - 1]["completed"] = True
+        completed_task = tasks.pop(index - 1)
         save_tasks(tasks)
-        print(f"Completed task {index}")
+        print(f"Zadanie ukończone i usunięte: {completed_task['description']}")
     else:
-        print("Invalid task number.")
+        print("Nieprawidłowy numer zadania.")
 
 def main():
     parser = argparse.ArgumentParser(description="Simple Todo CLI")
