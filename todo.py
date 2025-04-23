@@ -2,11 +2,15 @@ import argparse
 import json
 import os
 
+
+import logging
+logging.basicConfig(level=logging.INFO)
+
 DATA_FILE = "data.json"
 
 def load_tasks():
     if not os.path.exists(DATA_FILE):
-        print("No tasks found.")
+        logging.info("No tasks found.")
         return []
     with open(DATA_FILE, "r") as f:
         return json.load(f)
@@ -14,28 +18,28 @@ def load_tasks():
 def save_tasks(tasks):
     with open(DATA_FILE, "w") as f:
         json.dump(tasks, f, indent=2)
-    print("Tasks saved to json.")
+    logging.info("Tasks saved to json.")
 
 def add_task(description):
     tasks = load_tasks()
     tasks.append({"description": description, "completed": False})
-    print(f"Added task: {description}")
+    logging.info(f"Added task: {description}")
     save_tasks(tasks)
 
 def list_tasks():
     tasks = load_tasks()
     for i, task in enumerate(tasks, 1):
         status = "✓" if task["completed"] else " "
-        print(f"{i}. [{status}] {task['description']}")
+        logging.info(f"{i}. [{status}] {task['description']}")
 
 def complete_task(index):
     tasks = load_tasks()
     if 0 < index <= len(tasks):
         tasks[index - 1]["completed"] = True
         save_tasks(tasks)
-        print(f"Completed task {index}")
+        logging.info(f"Completed task {index}")
     else:
-        print("Invalid task number.")
+        logging.info("Invalid task number.")
 
 def main():
     parser = argparse.ArgumentParser(description="Simple Todo CLI")
