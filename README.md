@@ -1,6 +1,6 @@
 # Todo Workshop
 
-Prosta aplikacja Python CLI typu todo, przygotowana do ćwiczeń z **code review**.
+Prosta aplikacja Python CLI typu todo, przygotowana do ćwiczeń z __code review__ 😄
 
 ## Cel warsztatu
 
